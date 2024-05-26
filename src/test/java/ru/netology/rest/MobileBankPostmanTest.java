@@ -3,22 +3,24 @@ package ru.netology.rest;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static java.awt.SystemColor.text;
 
-class MobileBankApiTestV1 {
+class MobileBankPostmanTest {
     @Test
-    void shouldReturnDemoAccounts() {
+    void ShowTextInTheFieldData() {
         // Given - When - Then
+        String text = "Hello";
 // Предусловия
         given()
                 .baseUri("https://postman-echo.com")
-                .body("some data") // отправляемые данные (заголовки и query можно выставлять аналогично)
+                .body(text) // отправляемые данные (заголовки и query можно выставлять аналогично)
 // Выполняемые действия
                 .when()
                 .post("/post")
 // Проверки
                 .then()
-                .statusCode(200)
-                //.body(/* --> ваша проверка здесь <-- */)
+                .statusCode(400)
+                .body("data", org.hamcrest.Matchers.equalTo(text))
         ;
     }
 }
